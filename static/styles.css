@@ -1,0 +1,99 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #666;
+}
+
+.clear-url {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+  font-size: 18px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.review {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.prediction {
+  padding: 10px;
+  font-weight: bold;
+}
+
+.prediction.good {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.prediction.bad {
+  background-color: #F44336;
+  color: #fff;
+}
