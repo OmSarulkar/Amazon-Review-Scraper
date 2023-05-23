@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,13 +19,12 @@
         </form>
         {% if reviews %}
         <h2>Reviews:</h2>
-        <p>Scraped Reviews: {{ reviews|length }}</p>
-        <p>Good Reviews: {{ good_count }}</p>
-        <p>Bad Reviews: {{ bad_count }}</p>
         <ul>
             {% for i in range(reviews|length) %}
             <li>
-                <div class="review">{{ reviews[i] }}</div>
+                <div class="review {% if predictions[i] == 'pos' %}good{% else %}bad{% endif %}">
+                    {{ reviews[i] }}
+                </div>
                 <div class="prediction {% if predictions[i] == 'pos' %}good{% else %}bad{% endif %}">
                     {% if predictions[i] == "pos" %}
                         Good review!
@@ -37,6 +35,11 @@
             </li>
             {% endfor %}
         </ul>
+        <div class="review-stats">
+            <p>Scraped reviews: {{ reviews|length }}</p>
+            <p>Good reviews: {{ predictions.count('pos') }}</p>
+            <p>Bad reviews: {{ predictions.count('neg') }}</p>
+        </div>
         {% endif %}
 
     </div>
@@ -48,4 +51,3 @@
     </script>
 </body>
 </html>
-

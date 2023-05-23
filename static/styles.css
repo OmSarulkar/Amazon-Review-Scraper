@@ -97,3 +97,11 @@ li {
   background-color: #F44336;
   color: #fff;
 }
+
+.review.good {
+  background-color: #e1f5e1;
+}
+
+.review.bad {
+  background-color: #f7e9e9;
+}
