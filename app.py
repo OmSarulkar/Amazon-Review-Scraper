@@ -7,43 +7,45 @@ import joblib
 app = Flask(__name__)
 
 def scrape_reviews(url):
-    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', 'Accept-Language': 'en-US, en;q=0.5'}
+    HEADERS = ({'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
+    AppleWebKit/537.36 (KHTML, like Gecko) \
+    Chrome/90.0.4430.212 Safari/537.36',
+    'Accept-Language': 'en-US, en;q=0.5'})
 
+# user define function
+# Scrape the data
     def getdata(url):
-        try:
-            r = requests.get(url, headers=HEADERS, verify=False)
-            r.raise_for_status()  # Raise an exception if the response status is not successful
-            return r.text
-        except (requests.exceptions.RequestException, requests.exceptions.HTTPError) as e:
-            print(f"Error occurred during request: {e}")
-            return None
+        r = requests.get(url, headers=HEADERS)
+        return r.text
+
 
     def html_code(url):
+
+        # pass the url
+        # into getdata function
         htmldata = getdata(url)
-        if htmldata:
-            soup = BeautifulSoup(htmldata, 'html.parser')
-            return soup
-        else:
-            return None
+        soup = BeautifulSoup(htmldata, 'html.parser')
 
+        # display html code
+        return (soup)
     soup = html_code(url)
-
     def cus_rev(soup):
-        if soup is None:
-            return []
-
         data_str = ""
 
-        for item in soup.find_all("a", class_= "a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold"):
+        for item in soup.find_all("a", class_="a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold"):
             data_str = data_str + item.get_text()
 
         result = data_str.split("\n")
-        return result
+        return (result)
+
 
     rev_data = cus_rev(soup)
     rev_result = []
     for i in rev_data:
-        if i != "":
+        if i is "":
+            pass
+        else:
             rev_result.append(i)
     return rev_result
 

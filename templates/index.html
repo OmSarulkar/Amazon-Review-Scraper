@@ -18,6 +18,11 @@
             <button type="submit">Scrape and Classify</button>
         </form>
         {% if reviews %}
+        <div class="review-stats">
+            <p>Scraped reviews: {{ reviews|length }}</p>
+            <p>Good reviews: {{ predictions.count('pos') }}</p>
+            <p>Bad reviews: {{ predictions.count('neg') }}</p>
+        </div>
         <h2>Reviews:</h2>
         <ul>
             {% for i in range(reviews|length) %}
@@ -35,11 +40,7 @@
             </li>
             {% endfor %}
         </ul>
-        <div class="review-stats">
-            <p>Scraped reviews: {{ reviews|length }}</p>
-            <p>Good reviews: {{ predictions.count('pos') }}</p>
-            <p>Bad reviews: {{ predictions.count('neg') }}</p>
-        </div>
+        
         {% endif %}
 
     </div>
