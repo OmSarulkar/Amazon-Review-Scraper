@@ -3,3 +3,4 @@ Flask==2.2.3
 joblib==1.2.0
 Requests==2.30.0
 scikit-learn==1.1.0
+gunicorn
