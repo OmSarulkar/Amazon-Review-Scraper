@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup
@@ -50,10 +51,19 @@ def scrape_reviews(url):
 def classify_reviews(reviews):
     model = joblib.load('ranfor.pkl')
     predictions = []
+    good_count = 0  # Counter for good reviews
+    bad_count = 0   # Counter for bad reviews
+    
     for review in reviews:
         prediction = model.predict([review])
-        predictions.append(prediction[0])  # Assuming the model returns a single prediction
-    return predictions
+        predictions.append(prediction[0])
+
+        if prediction[0] == 'pos':
+            good_count += 1
+        else:
+            bad_count += 1
+
+    return predictions, good_count, bad_count
 
 
 @app.route('/')
@@ -65,9 +75,10 @@ def index():
 def classify():
     url = request.form['url']
     reviews = scrape_reviews(url)
-    predictions = classify_reviews(reviews)
+    predictions, good_count, bad_count = classify_reviews(reviews)
 
-    return render_template('index.html', reviews=reviews, predictions=predictions)
+    return render_template('index.html', reviews=reviews, predictions=predictions, good_count=good_count, bad_count=bad_count)
+
 
 
 if __name__ == '__main__':

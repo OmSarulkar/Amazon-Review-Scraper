@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,9 @@
         </form>
         {% if reviews %}
         <h2>Reviews:</h2>
+        <p>Scraped Reviews: {{ reviews|length }}</p>
+        <p>Good Reviews: {{ good_count }}</p>
+        <p>Bad Reviews: {{ bad_count }}</p>
         <ul>
             {% for i in range(reviews|length) %}
             <li>
@@ -44,3 +48,4 @@
     </script>
 </body>
 </html>
+
