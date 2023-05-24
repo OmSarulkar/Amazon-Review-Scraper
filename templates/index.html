@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Machine Learning based Amazon products Review Analyser</title>
+    <title>AMZ 69</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -40,7 +41,10 @@
             </li>
             {% endfor %}
         </ul>
-        
+        {% else %}
+        {% if reviews is defined %}
+        <p>No Reviews Found</p>
+        {% endif %}
         {% endif %}
 
     </div>

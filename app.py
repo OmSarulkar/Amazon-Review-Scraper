@@ -7,45 +7,30 @@ import joblib
 app = Flask(__name__)
 
 def scrape_reviews(url):
-    HEADERS = ({'User-Agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
-    AppleWebKit/537.36 (KHTML, like Gecko) \
-    Chrome/90.0.4430.212 Safari/537.36',
-    'Accept-Language': 'en-US, en;q=0.5'})
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', 'Accept-Language': 'en-US, en;q=0.5'}
 
-# user define function
-# Scrape the data
     def getdata(url):
         r = requests.get(url, headers=HEADERS)
         return r.text
 
-
     def html_code(url):
-
-        # pass the url
-        # into getdata function
         htmldata = getdata(url)
         soup = BeautifulSoup(htmldata, 'html.parser')
+        return soup
 
-        # display html code
-        return (soup)
     soup = html_code(url)
+
     def cus_rev(soup):
         data_str = ""
-
         for item in soup.find_all("a", class_="a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold"):
             data_str = data_str + item.get_text()
-
         result = data_str.split("\n")
-        return (result)
-
+        return result
 
     rev_data = cus_rev(soup)
     rev_result = []
     for i in rev_data:
-        if i is "":
-            pass
-        else:
+        if i != "":
             rev_result.append(i)
     return rev_result
 
@@ -53,9 +38,9 @@ def scrape_reviews(url):
 def classify_reviews(reviews):
     model = joblib.load('ranfor.pkl')
     predictions = []
-    good_count = 0  # Counter for good reviews
-    bad_count = 0   # Counter for bad reviews
-    
+    good_count = 0
+    bad_count = 0
+
     for review in reviews:
         prediction = model.predict([review])
         predictions.append(prediction[0])
@@ -78,9 +63,9 @@ def classify():
     url = request.form['url']
     reviews = scrape_reviews(url)
     predictions, good_count, bad_count = classify_reviews(reviews)
+    review_count = len(reviews)
 
-    return render_template('index.html', reviews=reviews, predictions=predictions, good_count=good_count, bad_count=bad_count)
-
+    return render_template('index.html', reviews=reviews, predictions=predictions, good_count=good_count, bad_count=bad_count, review_count=review_count)
 
 
 if __name__ == '__main__':
